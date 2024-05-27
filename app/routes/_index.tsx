@@ -1,7 +1,7 @@
 import { DEFAULT_POSITION } from "lib/chess";
 import { ChessMoveProps } from "models/chess-move.interface";
 import { useState } from "react";
-import ChessBoard from "~/components/chess-board";
+import ReChessBoard from "~/components/chess-board";
 import Footer from "~/components/footer";
 import NavBar from "~/components/navigation/navigation-bar";
 import { RootBackground } from "~/components/root-background";
@@ -28,7 +28,7 @@ const MainContent = () => {
         <Container>
           <NavBar />
           <div className="flex flex-col items-center justify-center">
-        <ChessBoard
+        <ReChessBoard
               key={position}
             />
             </div>

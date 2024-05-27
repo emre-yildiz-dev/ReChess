@@ -1,7 +1,5 @@
 import { Chess } from "../../lib/chess";
-import React, { useEffect, useState } from "react";
-import { tryCatch, fold } from "fp-ts/Either";
-import { pipe } from "fp-ts/function";
+import { useEffect, useState } from "react";
 import { ChessMoveProps } from "models/chess-move.interface";
 import { Piece, PromotionPieceOption, Square } from "~/chessboard/types";
 import { Chessboard } from "~/chessboard";
@@ -15,7 +13,7 @@ type Move = {
     promotion?: string;
 }
 
-const ChessBoard: React.FC = () => {
+const ReChessBoard = () => {
     const [gameState, setGameState] = useState(new Chess());
     const [gameStateHistory, setGameStateHistory] = useState<Chess[]>([]);
     const [moveHistory, setMoveHistory] = useState<ChessMoveProps[]>([]);
@@ -26,38 +24,28 @@ const ChessBoard: React.FC = () => {
     }, []);
 
     const attemptMove = (moveDetails: Move) => {
-        return pipe(
-            tryCatch(
-                () => {
-                    const updatedGame = new Chess(gameState.fen());
-                    const moveResult = updatedGame.move(moveDetails);
-                    if (moveResult) {
-                        const newMove: ChessMoveProps = {
-                            fenCode: updatedGame.fen(),
-                            from: moveDetails.from,
-                            to: moveDetails.to,
-                            move: moveResult.san, // Assuming moveResult has SAN notation
-                            piece: moveResult.piece,
-                        };
-                        setMoveHistory((prev) => [...prev, newMove]);
-                        setGameStateHistory((prev) => [...prev, updatedGame]);
-                    } else {
-                        throw new Error("Illegal move");
-                    }
-
-                    return updatedGame;
-                },
-                () => "Illegal move"
-            ),
-            fold(
-                () => false,
-                (updatedGame) => {
-                    setGameState(updatedGame);
-
-                    return true;
-                }
-            )
-        );
+        try {
+            const updatedGame = new Chess(gameState.fen());
+            const moveResult = updatedGame.move(moveDetails);
+            if (moveResult) {
+                const newMove: ChessMoveProps = {
+                    fenCode: updatedGame.fen(),
+                    from: moveDetails.from,
+                    to: moveDetails.to,
+                    move: moveResult.san, // Assuming moveResult has SAN notation
+                                       piece: moveResult.piece,
+                };
+                setMoveHistory((prev) => [...prev, newMove]);
+                setGameStateHistory((prev) => [...prev, updatedGame]);
+                setGameState(updatedGame);
+                return true;
+            } else {
+                throw new Error("Illegal move");
+            }
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
     };
 
     const handlePieceDrop = (sourceSquare: string, targetSquare: string, piece: string) => {
@@ -125,5 +113,4 @@ function isPromotionMove(move: Move): boolean {
     return (move.piece.includes("wP") && move.to.includes("8")) || (move.piece.includes("bP") && move.to.includes("1"));
 }
 
-export default ChessBoard;
-
+export default ReChessBoard;
