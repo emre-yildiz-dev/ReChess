@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  scroll-behavior: smooth;
+  min-height: 100dvh;
+  height: 100%;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* For WebKit browsers */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+@layer base {
+  h1 {
+    @apply scroll-m-20 text-balance text-5xl font-extrabold tracking-tight lg:text-6xl;
+  }
+  h2 {
+    @apply scroll-m-20 pb-2 text-4xl font-bold tracking-tight first:mt-0;
+  }
+  h3 {
+    @apply scroll-m-20 text-3xl font-semibold tracking-tight;
+  }
+  h4 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+  p {
+    @apply leading-7;
+  }
+
+  blockquote {
+    @apply mt-6 border-l-2 pl-6 italic;
+  }
+}
+
+.lead {
+  @apply text-lg text-muted-foreground font-semibold tracking-tight text-pretty;
+}
+
+@layer base {
+  :root {
+    --background: 239 42% 1%;
+    --foreground: 239 25% 98%;
+    --muted: 239.46 29.55% 32.06%;
+    --muted-foreground: 209 8% 69%;
+    --popover: 239 42% 2%;
+    --popover-foreground: 239 25% 99%;
+    --card: 239 42% 2%;
+    --card-foreground: 239 25% 99%;
+    --border: 239 29.18% 35.13%;
+    --input: 239 28.45% 29.94%;
+    --primary: 239 95% 77%;
+    --primary-foreground: 239 95% 17%;
+    --secondary: 209 95% 77%;
+    --secondary-foreground: 209 95% 17%;
+    --accent: 239.46 42.5% 36.17%;
+    --accent-foreground: 269 0% 100%;
+    --destructive: 2 82% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 239 95% 77%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
